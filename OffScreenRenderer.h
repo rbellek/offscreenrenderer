@@ -149,28 +149,28 @@ namespace offscreenrenderer
     };
 #pragma pack(pop)
 
-    void SaveBitmap(unsigned char* pBitmapBits, const int lWidth, const int lHeight, const int wBitsPerPixel, const char* lpszFileName)
+    void SaveBitmap(unsigned char* pBitmapBits, const int width, const int height, const int bitsPerPixel, const char* lpszFileName)
     {
-      constexpr unsigned long headers_size = sizeof(_BITMAPFILEHEADER) + sizeof(_BITMAPINFOHEADER);
-      static_assert(headers_size == 54, "Invalid BMP header struct size!");
+      constexpr unsigned long headersSize = sizeof(_BITMAPFILEHEADER) + sizeof(_BITMAPINFOHEADER);
+      static_assert(headersSize == 54, "Invalid BMP header struct size!");
 
       _BITMAPINFOHEADER bmpInfoHeader = { 0 };
 
       bmpInfoHeader.biSize = sizeof(_BITMAPINFOHEADER);
-      bmpInfoHeader.biBitCount = wBitsPerPixel;
+      bmpInfoHeader.biBitCount = bitsPerPixel;
       bmpInfoHeader.biClrImportant = 0;
       bmpInfoHeader.biClrUsed = 0;
       bmpInfoHeader.biCompression = BI_RGB;
-      bmpInfoHeader.biHeight = lHeight;
-      bmpInfoHeader.biWidth = lWidth;
+      bmpInfoHeader.biHeight = height;
+      bmpInfoHeader.biWidth = width;
       bmpInfoHeader.biPlanes = 1;
-      const unsigned long pixel_data_size = bmpInfoHeader.biHeight * ((bmpInfoHeader.biWidth * (wBitsPerPixel / 8)));
-      bmpInfoHeader.biSizeImage = pixel_data_size;
+      const unsigned long pixelSize = bmpInfoHeader.biHeight * ((bmpInfoHeader.biWidth * (bmpInfoHeader.biBitCount / 8)));
+      bmpInfoHeader.biSizeImage = pixelSize;
 
       _BITMAPFILEHEADER bfh = { 0 };
       bfh.bfType = 0x4D42;
-      bfh.bfOffBits = headers_size;
-      bfh.bfSize = headers_size + pixel_data_size;
+      bfh.bfOffBits = headersSize;
+      bfh.bfSize = headersSize + pixelSize;
 
       std::ofstream file(lpszFileName, std::ios::binary);
 
