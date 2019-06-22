@@ -31,6 +31,7 @@
 #include <GL/glew.h>
 #include <functional>
 #include <iostream>
+#include <fstream>
 
 namespace offscreenrenderer
 {
