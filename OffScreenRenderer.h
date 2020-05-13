@@ -27,8 +27,10 @@
 #ifndef OFFSCREENRENDERER_H
 #define OFFSCREENRENDERER_H
 
-#include <GL/GL.h>
 #include <GL/glew.h>
+#include <GL/GL.h>
+
+
 #include <functional>
 #include <iostream>
 #include <fstream>
@@ -94,6 +96,11 @@ namespace offscreenrenderer
 
     void Init()
     {
+      if (m_init)
+        return;
+
+      glewInit();
+
       glGenTextures(1, &m_textureID);
       glBindTexture(GL_TEXTURE_2D, m_textureID);
 
@@ -161,7 +168,7 @@ namespace offscreenrenderer
       bmpInfoHeader.biBitCount = bitsPerPixel;
       bmpInfoHeader.biClrImportant = 0;
       bmpInfoHeader.biClrUsed = 0;
-      bmpInfoHeader.biCompression = BI_RGB;
+      bmpInfoHeader.biCompression = 0;// BI_RGB;
       bmpInfoHeader.biHeight = height;
       bmpInfoHeader.biWidth = width;
       bmpInfoHeader.biPlanes = 1;
