@@ -28,9 +28,7 @@
 #define OFFSCREENRENDERER_H
 
 #include <GL/glew.h>
-#include <GL/GL.h>
-
-
+#include <GL/gl.h>
 #include <functional>
 #include <iostream>
 #include <fstream>
@@ -136,30 +134,30 @@ namespace offscreenrenderer
     struct _BITMAPFILEHEADER
     {
       unsigned short bfType;
-      unsigned long bfSize;
+      unsigned int bfSize;
       unsigned short bfReserved1;
       unsigned short bfReserved2;
-      unsigned long bfOffBits;
+      unsigned int bfOffBits;
     };
     struct _BITMAPINFOHEADER
     {
-      unsigned long biSize;
-      long biWidth;
-      long biHeight;
+      unsigned int biSize;
+      int biWidth;
+      int biHeight;
       unsigned short biPlanes;
       unsigned short biBitCount;
-      unsigned long biCompression;
-      unsigned long biSizeImage;
-      long biXPelsPerMeter;
-      long biYPelsPerMeter;
-      unsigned long biClrUsed;
-      unsigned long biClrImportant;
+      unsigned int biCompression;
+      unsigned int biSizeImage;
+      int biXPelsPerMeter;
+      int biYPelsPerMeter;
+      unsigned int biClrUsed;
+      unsigned int biClrImportant;
     };
 #pragma pack(pop)
 
     void SaveBitmap(unsigned char* pBitmapBits, const int width, const int height, const int bitsPerPixel, const char* lpszFileName)
     {
-      constexpr unsigned long headersSize = sizeof(_BITMAPFILEHEADER) + sizeof(_BITMAPINFOHEADER);
+      constexpr unsigned int headersSize = sizeof(_BITMAPFILEHEADER) + sizeof(_BITMAPINFOHEADER);
       static_assert(headersSize == 54, "Invalid BMP header struct size!");
 
       _BITMAPINFOHEADER bmpInfoHeader = { 0 };
@@ -172,7 +170,7 @@ namespace offscreenrenderer
       bmpInfoHeader.biHeight = height;
       bmpInfoHeader.biWidth = width;
       bmpInfoHeader.biPlanes = 1;
-      const unsigned long pixelSize = bmpInfoHeader.biHeight * ((bmpInfoHeader.biWidth * (bmpInfoHeader.biBitCount / 8)));
+      const unsigned int pixelSize = bmpInfoHeader.biHeight * ((bmpInfoHeader.biWidth * (bmpInfoHeader.biBitCount / 8)));
       bmpInfoHeader.biSizeImage = pixelSize;
 
       _BITMAPFILEHEADER bfh = { 0 };
