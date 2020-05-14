@@ -5,8 +5,9 @@ project(sample)
 add_executable(sample WIN32 main.cpp)
 
 set_property(TARGET sample PROPERTY CXX_STANDARD 14)
+set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS /SUBSYSTEM:CONSOLE)
 
-file(MAKE_DIRECTORY imgout)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/imgout)
 
 #--- Find OpenGL
 find_package(OpenGL REQUIRED)
