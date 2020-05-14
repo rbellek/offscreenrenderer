@@ -1,0 +1,10 @@
+Requirements:
+- GLEW
+- FreeGlut
+- CMake
+
+Build:
+git clone https://github.com/rbellek/offscreenrenderer.git
+cd offscreenrenderer/sample
+cmake
+make
