@@ -6,5 +6,6 @@ Requirements:
 Build:
 git clone https://github.com/rbellek/offscreenrenderer.git
 cd offscreenrenderer/sample
-cmake
+mkdir build && cd build
+cmake ..
 make
